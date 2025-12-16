@@ -22,51 +22,168 @@
       padding: 20px 10px;
     }
 
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #1e293b; }
-    ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+    /* =========================
+       LOVE / PREMIUM THEME (LOOK ONLY)
+       - No JS edits
+       - No ID changes
+       - No element removal
+    ========================= */
+    :root{
+      --bg-card: rgba(30, 41, 59, 0.78);
+      --bg-card-2: rgba(15, 23, 42, 0.55);
+      --border-soft: rgba(148, 163, 184, 0.18);
+      --border-strong: rgba(148, 163, 184, 0.26);
+      --text: #e2e8f0;
+      --muted: rgba(226, 232, 240, 0.70);
 
-    .card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      margin-bottom: 20px;
+      --rose: rgba(244, 114, 182, 0.95);
+      --violet: rgba(167, 139, 250, 0.95);
+      --teal: rgba(45, 212, 191, 0.95);
+
+      --shadow: 0 18px 60px rgba(0,0,0,0.35);
+      --shadow-soft: 0 10px 30px rgba(0,0,0,0.28);
+      --glow-rose: 0 0 0 1px rgba(244,114,182,0.18), 0 0 28px rgba(244,114,182,0.12);
+      --glow-violet: 0 0 0 1px rgba(167,139,250,0.18), 0 0 28px rgba(167,139,250,0.12);
+      --glow-teal: 0 0 0 1px rgba(45,212,191,0.16), 0 0 28px rgba(45,212,191,0.10);
+
+      --radius: 16px;
     }
+
+    /* Smooth, premium default */
+    * { -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(30, 41, 59, 0.65); }
+    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.35); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.55); }
 
     .container-wrapper { width: 100%; max-width: 1200px; }
 
+    /* LOVE cards (glass + premium) */
+    .card {
+      background: linear-gradient(180deg, var(--bg-card), var(--bg-card-2));
+      border: 1px solid var(--border-soft);
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(700px 220px at 10% 0%, rgba(244,114,182,0.08), transparent 55%),
+        radial-gradient(700px 220px at 90% 10%, rgba(167,139,250,0.08), transparent 55%),
+        radial-gradient(500px 200px at 50% 110%, rgba(45,212,191,0.05), transparent 60%);
+      pointer-events:none;
+      opacity: 1;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow);
+    }
+
+    /* Title glow (keeps text exactly Kut Milz TB) */
+    h1{
+      letter-spacing: 0.3px;
+      text-shadow: 0 0 22px rgba(244,114,182,0.18), 0 0 22px rgba(167,139,250,0.14);
+    }
+
+    /* Pills + statuses (must keep "pill" / "status-pill" names for JS) */
     .pill {
-      padding: 4px 10px;
+      padding: 6px 12px;
       border-radius: 9999px;
       font-size: 0.75rem;
-      font-weight: 600;
+      font-weight: 700;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      border: 1px solid rgba(148,163,184,0.18);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
     }
 
     .status-pill {
       display: flex;
       align-items: center;
-      padding: 4px 10px;
-      border-radius: 6px;
+      padding: 6px 12px;
+      border-radius: 10px;
       font-size: 0.875rem;
-      font-weight: 500;
+      font-weight: 700;
+      border: 1px solid rgba(148,163,184,0.18);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+      letter-spacing: 0.2px;
     }
 
+    /* Make ALL buttons feel app-like (without changing behavior) */
+    button{
+      transition: transform 140ms ease, filter 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
+      will-change: transform;
+    }
+    button:hover{ filter: brightness(1.06); }
+    button:active{ transform: translateY(1px) scale(0.99); }
+    button:focus-visible{
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(244,114,182,0.22), 0 0 0 6px rgba(167,139,250,0.14);
+    }
+
+    /* Premium inputs/selects everywhere (no structure change) */
+    input, select{
+      border-radius: 12px !important;
+    }
+    input:focus, select:focus{
+      outline: none !important;
+      box-shadow: 0 0 0 3px rgba(244,114,182,0.16), 0 0 0 6px rgba(167,139,250,0.10) !important;
+    }
+
+    /* Upgrade the log panels without changing IDs */
+    #tx-log, #system-log{
+      border-radius: 14px !important;
+      border: 1px solid rgba(148,163,184,0.18) !important;
+      background: linear-gradient(180deg, rgba(2,6,23,0.40), rgba(2,6,23,0.20)) !important;
+      box-shadow: inset 0 0 0 1px rgba(148,163,184,0.06);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    /* Make the alert look premium */
+    #cluster-alert{
+      box-shadow: var(--glow-violet);
+    }
+
+    /* Chart container polish */
     #chart-container {
       width: 100%;
       height: 320px;
-      background: #0b1220;
-      border: 1px solid #334155;
-      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(11,18,32,0.95), rgba(2,6,23,0.55));
+      border: 1px solid rgba(148,163,184,0.20);
+      border-radius: var(--radius);
       overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(148,163,184,0.06), 0 18px 50px rgba(0,0,0,0.28);
     }
     @media (min-width: 1024px) {
       #chart-container { height: 360px; }
+    }
+
+    /* Subtle LOVE glow hints on key sections by heading color */
+    .text-sky-400 { text-shadow: 0 0 18px rgba(45,212,191,0.10); }
+    .text-pink-400, .text-red-300 { text-shadow: 0 0 18px rgba(244,114,182,0.10); }
+    .text-emerald-400, .text-emerald-300 { text-shadow: 0 0 18px rgba(16,185,129,0.10); }
+
+    /* Improve small helper text readability */
+    .text-slate-400, .text-slate-500{
+      color: rgba(226,232,240,0.62) !important;
+    }
+
+    /* Make toggle track feel softer (visual only) */
+    .peer:checked + div{
+      box-shadow: var(--glow-rose);
     }
   </style>
 </head>
@@ -118,7 +235,7 @@
           </div>
 
           <div id="account-warning" class="hidden mt-3 p-3 rounded-lg border border-red-500/40 bg-red-500/10 text-sm text-red-200">
-            ⚠️ Symbol not available on this account. Use a Deriv <b>Derived/Synthetic (STD)</b> account for Volatility indices and Vol 1s.
+            â ï¸ Symbol not available on this account. Use a Deriv <b>Derived/Synthetic (STD)</b> account for Volatility indices and Vol 1s.
           </div>
         </div>
       </div>
@@ -137,7 +254,7 @@
             <span id="current-profit-display" class="text-lg font-bold text-slate-300">0.00</span>
           </div>
 
-          <!-- ✅ ADDED: Session Loss -->
+          <!-- â ADDED: Session Loss -->
           <div class="flex justify-between items-center">
             <span class="text-sm">Session Loss (USD):</span>
             <span id="current-loss-display" class="text-lg font-bold text-red-300">0.00</span>
@@ -150,7 +267,7 @@
         </div>
       </div>
 
-      <!-- ✅ ADDED: Transaction Log -->
+      <!-- â ADDED: Transaction Log -->
       <div class="card">
         <h2 class="text-xl font-semibold mb-4 text-emerald-300">Transaction Log</h2>
         <div class="p-3 bg-slate-900/40 border border-slate-700 rounded-lg text-xs whitespace-pre-wrap min-h-[120px] max-h-[220px] overflow-auto"
@@ -183,7 +300,7 @@
       <!-- Clustering Detected Alert -->
       <div id="cluster-alert" class="card hidden border-yellow-500/40">
         <div class="flex items-start gap-3">
-          <div class="text-yellow-400 text-xl">⚠️</div>
+          <div class="text-yellow-400 text-xl">â ï¸</div>
           <div>
             <div class="text-lg font-semibold text-yellow-300">Clustering Detected</div>
             <div id="cluster-text" class="text-sm text-slate-200 mt-1">
@@ -205,7 +322,7 @@
         </div>
         <div class="flex justify-between mt-2 text-xs text-slate-300">
           <div id="confidence-text">0%</div>
-          <div id="confidence-notes" class="text-slate-400">Waiting ticks…</div>
+          <div id="confidence-notes" class="text-slate-400">Waiting ticksâ¦</div>
         </div>
 
         <div class="mt-3 text-xs text-slate-400">
@@ -250,7 +367,7 @@
               </button>
             </div>
             <p class="text-xs text-slate-400 mt-2">
-              If symbol fails to stream, you may be on an account that doesn’t allow it. Use a Derived/STD account for Volatility indices.
+              If symbol fails to stream, you may be on an account that doesnât allow it. Use a Derived/STD account for Volatility indices.
             </p>
           </div>
 
@@ -271,7 +388,7 @@
 
           <div class="md:col-span-2 flex items-center justify-between p-3 bg-slate-700/50 rounded-lg mt-1">
             <div class="flex items-center gap-3">
-              <div class="text-purple-300 text-xl">⚡</div>
+              <div class="text-purple-300 text-xl">â¡</div>
               <div>
                 <div class="font-semibold text-slate-200">Auto Trading</div>
                 <div class="text-xs text-slate-400">Enable to start automated trading based on current settings</div>
@@ -428,7 +545,7 @@
           <label for="api-token" class="block text-sm font-medium mb-1 text-slate-300">Deriv API Token</label>
           <div class="flex items-center rounded-lg bg-slate-700 border border-slate-600 focus-within:ring-2 focus-within:ring-sky-500 transition duration-150">
             <span class="p-3 text-sky-400">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+              <svg xmlns="https://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3v2.25m-15.75 6a3 3 0 0 1 3-3h2.25m3.75-10.25v12a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25m15.75-6a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25m3.75 10.25v-12a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3v2.25" />
               </svg>
             </span>
@@ -439,14 +556,14 @@
 
             <button id="toggle-visibility-btn" class="p-3 text-slate-400 hover:text-sky-300 transition duration-150"
               type="button" title="Show Token">
-              👁️
+              ðï¸
             </button>
           </div>
         </div>
 
         <div class="relative mb-3">
           <label for="start-password" class="block text-sm font-medium mb-1 text-slate-300">Start Password</label>
-          <input type="password" id="start-password" placeholder="Type password to start bot…"
+          <input type="password" id="start-password" placeholder="Type password to start botâ¦"
             class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 text-slate-50 focus:ring-sky-500 focus:border-sky-500"
             autocomplete="off" />
           <p id="pw-error-message" class="mt-2 text-sm text-red-300 hidden">
@@ -483,14 +600,14 @@
 
       <!-- Insights -->
       <div class="card">
-        <h2 class="text-xl font-semibold mb-4 text-emerald-400">Market Insights ✨</h2>
+        <h2 class="text-xl font-semibold mb-4 text-emerald-400">Market Insights â¨</h2>
 
         <div class="flex flex-col sm:flex-row gap-4 mb-4">
           <button id="analyze-market-btn" class="flex-1 py-2 rounded-lg font-bold transition duration-200 bg-emerald-700 hover:bg-emerald-800 text-white shadow-lg">
-            Analyze Market Sentiment ✨
+            Analyze Market Sentiment â¨
           </button>
           <button id="assess-risk-btn" class="flex-1 py-2 rounded-lg font-bold transition duration-200 bg-pink-700 hover:bg-pink-800 text-white shadow-lg">
-            Assess Strategy Risk ✨
+            Assess Strategy Risk â¨
           </button>
         </div>
 
@@ -503,7 +620,7 @@
         </div>
 
         <div class="mt-3 text-xs text-slate-400">
-          Note: This is NOT financial advice. Signals can be wrong — always risk-manage.
+          Note: This is NOT financial advice. Signals can be wrong â always risk-manage.
         </div>
       </div>
 
@@ -582,8 +699,6 @@ const appState = {
   currentSymbolAtEntry:null,   // e.g., "R_100"
 
   mode:'SCALP',
-  // ✅ Auto PA mode (derived from duration unit)
-  paMode:'SCALP',
   isSettingsLocked:true,
   isSafeMode:false,
   autoResume:true,
@@ -626,33 +741,36 @@ const appState = {
   chart:{
     lastCandleTime:0,
     lastOHLC:null,
-    hasTick:false
+    hasTick:false,
+
+    /* ✅ PRICE ACTION: closed 1s candle history (used by filter) */
+    closedCandles: []  // {time, open, high, low, close}
   },
 
-  // ✅ Price Action candles (built from 1-second tick candles)
-  pa:{
-    candles:[],         // recent 1s candles: {time, open, high, low, close}
-    maxCandles:300,     // keep last ~5 minutes of 1s candles
-    lastFinalizedTime:0,
-    lastBlockReason:""
+  // ✅ AI-style Market Analysis (local, no API key required)
+  ai:{
+    enabled:true,
+    score:0,
+    regime:"BUILDING",     // BUILDING | IMPULSE | TREND | NEUTRAL | CHOP | DEAD
+    decision:"WAIT",       // TRADE | WAIT
+    notes:"Warming up...",
+    lastUpdate:0,
+    updateEveryMs:800,
+
+    // thresholds
+    minScoreAuto:55,
+    minScoreManual:45,
+
+    // protection
+    lossStreak:0,
+    winStreak:0,
+    pausedUntil:0,
+    pauseAfterLossStreak:3,     // after 3 losses -> pause
+    pauseMultiplier:2           // pause = cooldown * multiplier
   },
 
   // account
   isDemo: null
-
-
-// ✅ Auto-switch Price Action mode based on duration unit
-function autoPAModeFromDurationUnit(unit){
-  // Fast timeframes: Ticks/Seconds/Minutes => SCALP
-  // Slow timeframes: Hours => H4
-  return (unit === 'h') ? 'H4' : 'SCALP';
-}
-
-function syncPAModeFromDurationUnit(){
-  const unit = appState.durationUnit || 't';
-  const next = autoPAModeFromDurationUnit(unit);
-  if (appState.paMode !== next) appState.paMode = next;
-}
 };
 
 /* =========================================================
@@ -915,9 +1033,6 @@ function updateStateFromUI(){
 
     if (dom.safeToggle) appState.isSafeMode = !!dom.safeToggle.checked;
 
-    // ✅ Keep PA mode in sync with selected timeframe (duration unit)
-    syncPAModeFromDurationUnit();
-
     updateUI();
   } catch(e){
     logLine("UI parse error: " + e.message);
@@ -935,8 +1050,6 @@ function loadDefaults(mode){
   appState.stakeAmount = d.stake;
   appState.duration = d.duration;
   appState.durationUnit = d.durationUnit;
-  // ✅ Keep PA mode synced to duration unit
-  syncPAModeFromDurationUnit();
   appState.tpUSD = d.tp;
   appState.slUSD = d.sl;
   appState.maxTradesPerSignal = d.maxTrades;
@@ -1042,6 +1155,12 @@ function updateSeriesFromTick(price){
     c.close = price;
     try{ series.update(c); }catch(_){}
   } else {
+    /* ✅ PRICE ACTION: finalize previous candle into history */
+    if (appState.chart.lastOHLC){
+      appState.chart.closedCandles.push({ ...appState.chart.lastOHLC });
+      if (appState.chart.closedCandles.length > 240) appState.chart.closedCandles.shift(); // keep last ~4 mins
+    }
+
     appState.chart.lastCandleTime = nowSec;
     appState.chart.lastOHLC = { time: nowSec, open: price, high: price, low: price, close: price };
     try{ series.update(appState.chart.lastOHLC); }catch(_){}
@@ -1107,184 +1226,6 @@ function trendAllows(direction){
   return false;
 }
 
-
-/* =========================================================
-   ✅ Price Action Filter (ADD-ONLY gate)
-   - Uses recent 1-second candles built from tick stream
-   - Two strictness profiles based on appState.mode:
-       SCALP/MOMENTUM = looser
-       H4             = tighter
-========================================================= */
-function finalizePriceActionCandleIfNeeded(nowSec){
-  const ch = appState.chart;
-  if (!ch || !ch.lastOHLC) return;
-
-  // If our chart candle time has advanced, the previous OHLC is "final"
-  if (appState.pa.lastFinalizedTime && ch.lastCandleTime > appState.pa.lastFinalizedTime){
-    const prev = ch.lastOHLC; // lastOHLC is updated in updateSeriesFromTick; when time advances it becomes the new candle
-    // Guard: only finalize when we actually have a candle for lastFinalizedTime
-    // We build from the candle that JUST ended: use a cached copy from before rollover if available
-  }
-}
-
-/**
- * Record finalized 1-second candles into appState.pa.candles
- * We do this in tick handler by detecting second rollover using chart.lastCandleTime.
- */
-function recordPriceActionCandle(){
-  const ch = appState.chart;
-  if (!ch || !ch.lastOHLC || !ch.lastCandleTime) return;
-
-  // On first tick, initialize lastFinalizedTime
-  if (!appState.pa.lastFinalizedTime){
-    appState.pa.lastFinalizedTime = ch.lastCandleTime;
-    return;
-  }
-
-  // If lastCandleTime advanced, the previous candle is finalized.
-  // The finalized candle is the one whose time equals appState.pa.lastFinalizedTime.
-  if (ch.lastCandleTime !== appState.pa.lastFinalizedTime){
-    // We need the candle that ended; it's not directly stored after rollover.
-    // So we keep a small cache of the candle just before updateSeriesFromTick rolls over.
-    // We'll rely on appState.pa._lastCandleSnapshot set in tick handler.
-    const snap = appState.pa._lastCandleSnapshot;
-    if (snap && snap.time === appState.pa.lastFinalizedTime){
-      appState.pa.candles.push(snap);
-      while(appState.pa.candles.length > appState.pa.maxCandles) appState.pa.candles.shift();
-    }
-    appState.pa.lastFinalizedTime = ch.lastCandleTime;
-  }
-}
-
-function paParams(){
-  // Default: SCALP-ish
-  const mode = (appState.paMode || appState.mode || "SCALP");
-  if (mode === "H4"){
-    return {
-      name:"H4",
-      lookback: 60,          // candles for chop assessment
-      minBodyRatio: 0.65,    // body must be strong
-      maxOppWickRatio: 0.18, // opposite wick must be small
-      maxTotalWickRatio: 0.45,
-      minFollowThrough: true,
-      chopSpanMult: 1.25,    // tighter span threshold
-      minDirectionalBias: 0.55
-    };
-  }
-  // SCALP + MOMENTUM
-  return {
-    name:"SCALP",
-    lookback: 12,
-    minBodyRatio: 0.52,
-    maxOppWickRatio: 0.28,
-    maxTotalWickRatio: 0.55,
-    minFollowThrough: true,
-    chopSpanMult: 1.6,
-    minDirectionalBias: 0.50
-  };
-}
-
-function candleParts(c){
-  const range = Math.max(1e-9, (c.high - c.low));
-  const body = Math.abs(c.close - c.open);
-  const upperWick = c.high - Math.max(c.open, c.close);
-  const lowerWick = Math.min(c.open, c.close) - c.low;
-  return {
-    range,
-    body,
-    bodyRatio: body / range,
-    upperWick,
-    lowerWick,
-    upperWickRatio: upperWick / range,
-    lowerWickRatio: lowerWick / range,
-    totalWickRatio: (upperWick + lowerWick) / range
-  };
-}
-
-function priceActionPass(direction){
-  const p = paParams();
-  const arr = appState.pa?.candles || [];
-
-  // Need at least a few candles to judge
-  if (arr.length < Math.max(6, Math.floor(p.lookback * 0.6))){
-    appState.pa.lastBlockReason = "PA: building candles";
-    return false;
-  }
-
-  const recent = arr.slice(-p.lookback);
-  const last = recent[recent.length - 1];
-  const prev = recent[recent.length - 2];
-  if (!last || !prev){
-    appState.pa.lastBlockReason = "PA: missing candle";
-    return false;
-  }
-
-  // 1) Candle strength + wick rejection
-  const parts = candleParts(last);
-  if (parts.bodyRatio < p.minBodyRatio){
-    appState.pa.lastBlockReason = `PA: weak body (${(parts.bodyRatio*100).toFixed(0)}%)`;
-    return false;
-  }
-  if (parts.totalWickRatio > p.maxTotalWickRatio){
-    appState.pa.lastBlockReason = "PA: too much wick";
-    return false;
-  }
-  if (direction === "CALL"){
-    if (parts.upperWickRatio > p.maxOppWickRatio){
-      appState.pa.lastBlockReason = "PA: buy wick rejection";
-      return false;
-    }
-  } else if (direction === "PUT"){
-    if (parts.lowerWickRatio > p.maxOppWickRatio){
-      appState.pa.lastBlockReason = "PA: sell wick rejection";
-      return false;
-    }
-  }
-
-  // 2) Follow-through (no flat overlap)
-  if (p.minFollowThrough){
-    if (direction === "CALL" && !(last.close > prev.close)){
-      appState.pa.lastBlockReason = "PA: no buy follow-through";
-      return false;
-    }
-    if (direction === "PUT" && !(last.close < prev.close)){
-      appState.pa.lastBlockReason = "PA: no sell follow-through";
-      return false;
-    }
-  }
-
-  // 3) Chop / range guard (simple but effective)
-  let hi = -Infinity, lo = Infinity, sumRange = 0, dirCloses = 0;
-  for (let i=0;i<recent.length;i++){
-    const c = recent[i];
-    hi = Math.max(hi, c.high);
-    lo = Math.min(lo, c.low);
-    sumRange += Math.max(1e-9, (c.high - c.low));
-    if (i>0){
-      if (direction === "CALL" && c.close >= recent[i-1].close) dirCloses++;
-      if (direction === "PUT"  && c.close <= recent[i-1].close) dirCloses++;
-    }
-  }
-  const span = Math.max(1e-9, hi - lo);
-  const meanRange = sumRange / recent.length;
-
-  // If span is too small compared to mean candle size, it's likely chop/range.
-  if (span < meanRange * p.chopSpanMult){
-    appState.pa.lastBlockReason = "PA: chop/range";
-    return false;
-  }
-
-  // Directional bias: more closes should agree with direction.
-  const bias = dirCloses / Math.max(1, recent.length-1);
-  if (bias < p.minDirectionalBias){
-    appState.pa.lastBlockReason = "PA: mixed candles";
-    return false;
-  }
-
-  appState.pa.lastBlockReason = "";
-  return true;
-}
-
 /* =========================================================
    Signals
 ========================================================= */
@@ -1307,6 +1248,267 @@ function passesBreakoutFilter(direction){
   if (direction === "CALL") return (hi-last) <= (span*0.15);
   if (direction === "PUT")  return (last-lo) <= (span*0.15);
   return false;
+}
+
+/* =========================================================
+   ✅ PRICE ACTION FILTER (ALL 3 MODES)
+========================================================= */
+function paStats(c){
+  const range = Math.max(1e-9, c.high - c.low);
+  const body = Math.abs(c.close - c.open);
+  const upperWick = c.high - Math.max(c.open, c.close);
+  const lowerWick = Math.min(c.open, c.close) - c.low;
+  return { range, body, upperWick, lowerWick, bodyToRange: body / range };
+}
+
+function paRecentRange(candles, n){
+  const slice = candles.slice(-n);
+  let hi = -Infinity, lo = Infinity;
+  for (const c of slice){
+    if (c.high > hi) hi = c.high;
+    if (c.low < lo) lo = c.low;
+  }
+  const range = (hi - lo) || 1e-9;
+  return { hi, lo, range };
+}
+
+function paIsFakeBreakout(last, rangeHi, rangeLo, direction, buffer){
+  if (direction === "CALL"){
+    const poked = last.high > (rangeHi + buffer);
+    const closedBack = last.close < (rangeHi + buffer*0.25);
+    return poked && closedBack;
+  } else {
+    const poked = last.low < (rangeLo - buffer);
+    const closedBack = last.close > (rangeLo - buffer*0.25);
+    return poked && closedBack;
+  }
+}
+
+function passesPriceActionFilter(direction){
+  const candles = appState.chart.closedCandles;
+  if (!candles || candles.length < 25) {
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Price Action: Building Candles";
+    return false;
+  }
+
+  const mode = appState.mode || "SCALP";
+
+  const cfg = {
+    SCALP:    { lookback: 20, minBody: 0.38, wickLimit: 0.55, closeEdge: 0.55, bufferFrac: 0.10 },
+    MOMENTUM: { lookback: 35, minBody: 0.45, wickLimit: 0.50, closeEdge: 0.60, bufferFrac: 0.12 },
+    H4:       { lookback: 50, minBody: 0.52, wickLimit: 0.45, closeEdge: 0.65, bufferFrac: 0.14 }
+  }[mode] || { lookback: 20, minBody: 0.38, wickLimit: 0.55, closeEdge: 0.55, bufferFrac: 0.10 };
+
+  const last = candles[candles.length - 1];
+  const s = paStats(last);
+
+  if (s.bodyToRange < cfg.minBody) {
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Price Action: Weak Candle";
+    return false;
+  }
+
+  if (direction === "CALL"){
+    if ((s.upperWick / s.range) > cfg.wickLimit){
+      if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Price Action: Wick Trap Up";
+      return false;
+    }
+  } else {
+    if ((s.lowerWick / s.range) > cfg.wickLimit){
+      if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Price Action: Wick Trap Down";
+      return false;
+    }
+  }
+
+  const { hi, lo, range } = paRecentRange(candles, cfg.lookback);
+  const buffer = range * cfg.bufferFrac;
+
+  if (paIsFakeBreakout(last, hi, lo, direction, buffer)){
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Price Action: Fake Breakout";
+    return false;
+  }
+
+  const closePos = (last.close - lo) / (range || 1e-9);
+  if (direction === "CALL"){
+    if (closePos < cfg.closeEdge){
+      if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Price Action: Weak Close Up";
+      return false;
+    }
+  } else {
+    if (closePos > (1 - cfg.closeEdge)){
+      if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Price Action: Weak Close Down";
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/* =========================================================
+   ✅ AI-STYLE MARKET ANALYSIS (LOCAL)
+   - Reads selected symbol live ticks + 1s candles
+   - Outputs: score (0-100), regime, decision (TRADE/WAIT)
+   - Protects: auto-pause after loss streak
+========================================================= */
+function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+
+function aiAutoModeByDurationUnit(){
+  // Auto-switch strictness by duration unit (ticks/seconds/minutes -> SCALP, hours -> H4)
+  // NOTE: Doesn't change your selected mode in UI; it only influences AI thresholds.
+  const u = appState.durationUnit;
+  return (u === "h") ? "H4" : "SCALP";
+}
+
+function aiComputeRegimeAndScore(){
+  const candles = appState.chart.closedCandles || [];
+  const buf = appState.tickBuffer || [];
+
+  // Need at least some data
+  if (candles.length < 20 || buf.length < appState.tickBufferSize){
+    return { score: 0, regime: "BUILDING", decision: "WAIT", notes: "AI warming up (building data)..." };
+  }
+
+  const aiMode = aiAutoModeByDurationUnit(); // SCALP or H4 strictness for AI
+  const lastN = (aiMode === "H4") ? 60 : 30;
+  const c = candles.slice(-lastN);
+
+  // volatility proxy from 1s candle ranges
+  const ranges = c.map(x => Math.max(1e-9, x.high - x.low));
+  const avgRange = ranges.reduce((a,b)=>a+b,0) / Math.max(1, ranges.length);
+
+  // wick/chop proxy: overlap + small bodies
+  let overlapHits = 0;
+  let weakBodies = 0;
+  for (let i=1;i<c.length;i++){
+    const prev = c[i-1], cur = c[i];
+    const hi = Math.min(prev.high, cur.high);
+    const lo = Math.max(prev.low, cur.low);
+    const ov = Math.max(0, hi - lo);
+    const rr = Math.max(1e-9, (cur.high-cur.low));
+    if ((ov/rr) > 0.65) overlapHits++;
+    const st = paStats(cur);
+    if (st.bodyToRange < 0.35) weakBodies++;
+  }
+  const overlapRate = overlapHits / Math.max(1, c.length-1);
+  const weakRate = weakBodies / Math.max(1, c.length);
+
+  // momentum proxy from tick buffer delta
+  const first = buf[0], last = buf[buf.length-1];
+  const delta = last - first;
+  const dir = getMomentumDirection(); // CALL/PUT/null
+  const strength = clamp(Math.abs(delta) / Math.max(appState.momentumThreshold, 1e-9), 0, 2);
+
+  // trend proxy from last 10 closes slope
+  const closes = c.map(x => x.close);
+  const k = Math.min(10, closes.length);
+  const start = closes[closes.length-k];
+  const end = closes[closes.length-1];
+  const slope = (end - start) / Math.max(1e-9, k);
+
+  // Build score
+  let score = 0;
+
+  // Momentum contributes (0-50)
+  score += clamp(strength * 25, 0, 50);
+
+  // Volatility contributes (0-20) - avoid dead markets
+  // Normalize avgRange with a soft scaling.
+  const volScore = clamp((avgRange / Math.max(1e-9, avgRange)) * 10, 0, 20); // stable 10..20
+  score += volScore;
+
+  // Chop penalties
+  score -= overlapRate * (aiMode === "H4" ? 45 : 30);
+  score -= weakRate * (aiMode === "H4" ? 30 : 20);
+
+  // Trend reinforcement
+  score += clamp(Math.abs(slope) / Math.max(1e-9, avgRange) * 10, 0, (aiMode === "H4" ? 20 : 12));
+
+  // Clustering penalty
+  if (dom.clusterAlert && !dom.clusterAlert.classList.contains("hidden")) score -= (aiMode === "H4" ? 20 : 12);
+
+  score = clamp(Math.round(score), 0, 100);
+
+  // Regime classification
+  let regime = "NEUTRAL";
+  if (avgRange < 1e-9 || score < 25) regime = "DEAD";
+  else if (overlapRate > (aiMode === "H4" ? 0.55 : 0.65)) regime = "CHOP";
+  else if (score >= 75 && dir) regime = "IMPULSE";
+  else if (score >= 60 && dir) regime = "TREND";
+  else regime = "NEUTRAL";
+
+  // Decision
+  let decision = "WAIT";
+  if (regime === "IMPULSE" || regime === "TREND") decision = "TRADE";
+  if (regime === "CHOP" || regime === "DEAD") decision = "WAIT";
+
+  const notes = `AI=${aiMode} | Regime=${regime} | Score=${score}% | Δ=${delta.toFixed(4)} | Overlap=${(overlapRate*100).toFixed(0)}% | Weak=${(weakRate*100).toFixed(0)}%`;
+
+  return { score, regime, decision, notes };
+}
+
+function aiUpdate(){
+  if (!appState.ai.enabled) return;
+  const now = Date.now();
+  if (now - appState.ai.lastUpdate < appState.ai.updateEveryMs) return;
+  appState.ai.lastUpdate = now;
+
+  // pause window
+  if (now < appState.ai.pausedUntil){
+    appState.ai.score = 0;
+    appState.ai.regime = "PAUSED";
+    appState.ai.decision = "WAIT";
+    appState.ai.notes = `AI paused (loss protection) ${(Math.ceil((appState.ai.pausedUntil-now)/1000))}s left`;
+    return;
+  }
+
+  const r = aiComputeRegimeAndScore();
+  appState.ai.score = r.score;
+  appState.ai.regime = r.regime;
+  appState.ai.decision = r.decision;
+  appState.ai.notes = r.notes;
+}
+
+function aiAllowsTrade(isManual=false){
+  if (!appState.ai.enabled) return true;
+
+  const now = Date.now();
+  if (now < appState.ai.pausedUntil){
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "AI: Paused (loss protection)";
+    return false;
+  }
+
+  aiUpdate();
+
+  const minScore = isManual ? appState.ai.minScoreManual : appState.ai.minScoreAuto;
+  if (appState.ai.score < minScore){
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = `AI: Low Score (${appState.ai.score}%)`;
+    return false;
+  }
+
+  // If AI says WAIT due to CHOP/DEAD, block too
+  if (appState.ai.decision !== "TRADE"){
+    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = `AI: ${appState.ai.regime}`;
+    return false;
+  }
+
+  return true;
+}
+
+function aiOnTradeClosed(profit){
+  if (!appState.ai.enabled) return;
+  if (profit < 0){
+    appState.ai.lossStreak++;
+    appState.ai.winStreak = 0;
+
+    if (appState.ai.lossStreak >= appState.ai.pauseAfterLossStreak){
+      const pauseMs = (appState.cooldownDuration * 1000) * appState.ai.pauseMultiplier;
+      appState.ai.pausedUntil = Date.now() + pauseMs;
+      logLine(`AI protection: paused after ${appState.ai.lossStreak} losses for ${Math.round(pauseMs/1000)}s`);
+      appState.ai.lossStreak = 0; // reset after pause trigger
+    }
+  } else {
+    appState.ai.winStreak++;
+    appState.ai.lossStreak = 0;
+  }
 }
 
 /* =========================================================
@@ -1367,7 +1569,11 @@ function computeConfidence(){
   if (dir && score >= 70) signal = (dir === "CALL") ? "BUY" : "SELL";
   else if (dir && score >= 45) signal = "WATCH";
 
-  const notes = `Δ=${delta.toFixed(4)} | Mode=${appState.mode} | Trend=${appState.trend.enabled ? appState.trend.status : "OFF"} | Breakout=${breakoutOk ? "OK" : "WAIT"}`;
+  // ✅ AI info appended
+  aiUpdate();
+  const aiLine = appState.ai.enabled ? ` | AI: ${appState.ai.regime} ${appState.ai.score}%` : "";
+
+  const notes = `Δ=${delta.toFixed(4)} | Mode=${appState.mode} | Trend=${appState.trend.enabled ? appState.trend.status : "OFF"} | Breakout=${breakoutOk ? "OK" : "WAIT"}${aiLine}`;
   return { score, signal, notes };
 }
 
@@ -1503,6 +1709,19 @@ function startBot(){
   appState.chart.hasTick = false;
   appState.lastDigits = [];
 
+  // ✅ PRICE ACTION: reset candle history on start
+  appState.chart.closedCandles = [];
+
+  // ✅ AI reset
+  appState.ai.score = 0;
+  appState.ai.regime = "BUILDING";
+  appState.ai.decision = "WAIT";
+  appState.ai.notes = "Warming up...";
+  appState.ai.lossStreak = 0;
+  appState.ai.winStreak = 0;
+  appState.ai.pausedUntil = 0;
+  appState.ai.lastUpdate = 0;
+
   appState.currentDirection = null;
   appState.currentSymbolAtEntry = null;
 
@@ -1530,13 +1749,6 @@ function handleResponse(res){
   if (res.error){
     const msg = res.error.message || "Unknown API error";
     logLine("API Error: " + msg);
-
-    // If trend request fails, don't leave it stuck on LOADING forever
-    if (appState.trend.enabled && msg.toLowerCase().includes("unrecognised request")){
-      appState.trend.status = "ERROR";
-      logLine("H4 Trend failed: wrong request. (Now fixed in this version)");
-      updateUI();
-    }
 
     const m = msg.toLowerCase();
     if (m.includes("symbol") || m.includes("market") || m.includes("available") || m.includes("not found")){
@@ -1573,7 +1785,7 @@ function handleResponse(res){
       appState.trend.lastUpdated = 0;
       if (appState.trend.enabled){
         appState.trend.status = "LOADING";
-        requestH4Candles(); // ✅ now correct request
+        requestH4Candles();
       } else {
         appState.trend.status = "OFF";
       }
@@ -1601,14 +1813,7 @@ function handleResponse(res){
       const price = Number(res.tick.quote);
       if (!Number.isFinite(price)) return;
 
-      // ✅ Price Action: snapshot current 1s candle BEFORE it rolls over
-      if (appState.chart && appState.chart.lastOHLC){
-        appState.pa._lastCandleSnapshot = { ...appState.chart.lastOHLC };
-      }
-
       updateSeriesFromTick(price);
-      // ✅ Price Action: record finalized candle on second rollover
-      recordPriceActionCandle();
       updateClustering(price);
 
       appState.lastTick = price;
@@ -1617,13 +1822,15 @@ function handleResponse(res){
 
       maybeRefreshTrend();
 
+      // ✅ AI update while streaming
+      aiUpdate();
+
       if (appState.autoTradingEnabled) checkAndEnterTrade();
 
       updateUI();
       break;
     }
 
-    /* ✅ FIXED: H4 candles now arrive as msg_type:"history" */
     case "history":{
       if (!appState.trend.enabled) return;
 
@@ -1644,22 +1851,6 @@ function handleResponse(res){
 
       appState.trend.status = trendClassify(ema20, ema50);
       logLine(`H4 Trend updated: ${appState.trend.status}`);
-      updateUI();
-      break;
-    }
-
-    /* (Optional backwards compatibility if any environment still returns "candles") */
-    case "candles":{
-      if (!res.candles || !Array.isArray(res.candles)){
-        appState.trend.status = "ERROR";
-        logLine("Trend candles error.");
-        updateUI();
-        return;
-      }
-      const closes = res.candles.map(c => parseFloat(c.close)).filter(n => Number.isFinite(n));
-      const ema20 = calcEMA(closes, appState.trend.emaFast);
-      const ema50 = calcEMA(closes, appState.trend.emaSlow);
-      appState.trend.status = trendClassify(ema20, ema50);
       updateUI();
       break;
     }
@@ -1697,6 +1888,9 @@ function handleResponse(res){
 
           appState.sessionProfit += profit;
           if (profit < 0) appState.sessionLoss += Math.abs(profit);
+
+          // ✅ AI streak + auto-pause protection
+          aiOnTradeClosed(profit);
 
           updateProfit(appState.sessionProfit);
           updateLoss(appState.sessionLoss);
@@ -1761,16 +1955,12 @@ function checkAndEnterTrade(){
     return;
   }
 
+  // ✅ AI Gate (AUTO)
+  if (!aiAllowsTrade(false)) return;
+
   const direction = getMomentumDirection();
   if (!direction){
     if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "Waiting Good Move";
-    return;
-  }
-
-  // ✅ Price Action gate (ADD-ONLY): blocks trades in chop/weak candles
-  if (!priceActionPass(direction)){
-    const r = appState.pa?.lastBlockReason || "PA Blocked";
-    if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = r;
     return;
   }
   if (!passesBreakoutFilter(direction)){
@@ -1787,6 +1977,11 @@ function checkAndEnterTrade(){
       if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = `H4 Trend Blocked (${appState.trend.status})`;
       return;
     }
+  }
+
+  /* ✅ PRICE ACTION GATE (AUTO) */
+  if (!passesPriceActionFilter(direction)){
+    return;
   }
 
   if (dom.blockReasonDisplay) dom.blockReasonDisplay.textContent = "None";
@@ -1882,6 +2077,7 @@ function fallbackInsight(type){
       `• Momentum: ${dir} | Δ=${delta.toFixed(4)}`,
       `• Breakout Strict: ${appState.breakoutStrict ? "ON" : "OFF"}`,
       `• Confidence: ${conf.score}% | Signal: ${conf.signal}`,
+      `• AI: ${appState.ai.enabled ? `${appState.ai.regime} (${appState.ai.score}%)` : "OFF"}`,
       ``,
       `Suggested Action:`,
       conf.signal === "BUY" ? "• BUY setup is strong (conditions passing)" :
@@ -1900,7 +2096,8 @@ function fallbackInsight(type){
     `• Duration: ${appState.duration} ${appState.durationUnit}`,
     `• Cooldown: ${appState.cooldownDuration}s`,
     `• Auto Trading: ${appState.autoTradingEnabled ? "ON" : "OFF"}`,
-    `• Session P/L: $${appState.sessionProfit.toFixed(2)} | Loss: $${appState.sessionLoss.toFixed(2)}`
+    `• Session P/L: $${appState.sessionProfit.toFixed(2)} | Loss: $${appState.sessionLoss.toFixed(2)}`,
+    `• AI: ${appState.ai.enabled ? `${appState.ai.regime} (${appState.ai.score}%)` : "OFF"}`
   ].join("\n");
 }
 
@@ -1939,6 +2136,12 @@ function manualPlaceTrade(mult=1){
     return;
   }
 
+  // ✅ AI Gate (MANUAL)
+  if (!aiAllowsTrade(true)){
+    updateTradeStatus("WAIT: AI says no", "bg-yellow-600 text-white");
+    return;
+  }
+
   const conf = computeConfidence();
   const dir = getMomentumDirection();
 
@@ -1958,11 +2161,9 @@ function manualPlaceTrade(mult=1){
     return;
   }
 
-  // ✅ Price Action filter gate (manual trades)
-  if (!priceActionPass(dir)){
-    const reason = appState.pa?.lastBlockReason || "PA: blocked";
-    updateTradeStatus(`BLOCKED: ${reason}`, "bg-yellow-700 text-white");
-    logLine(`Manual trade blocked by price action: ${reason}`);
+  /* ✅ PRICE ACTION GATE (MANUAL) */
+  if (!passesPriceActionFilter(dir)){
+    updateTradeStatus("WAIT: price action", "bg-yellow-600 text-white");
     return;
   }
 
@@ -2003,6 +2204,19 @@ function setSymbol(newSymbol){
   appState.lastDigits = [];
   appState.chart.lastCandleTime = 0;
   appState.chart.lastOHLC = null;
+
+  // ✅ PRICE ACTION: reset candle history on symbol switch
+  appState.chart.closedCandles = [];
+
+  // ✅ AI reset on symbol change
+  appState.ai.score = 0;
+  appState.ai.regime = "BUILDING";
+  appState.ai.decision = "WAIT";
+  appState.ai.notes = "Warming up...";
+  appState.ai.lossStreak = 0;
+  appState.ai.winStreak = 0;
+  appState.ai.pausedUntil = 0;
+  appState.ai.lastUpdate = 0;
 
   appState.trend.lastUpdated = 0;
   if (appState.trend.enabled) appState.trend.status = "LOADING";
